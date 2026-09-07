@@ -28,13 +28,14 @@
 
 <body>
 	@include('frontend.layouts.header')
-	@include('frontend.layouts.slide')
+	
 
 	<section>
 		<div class="container">
 			<div class="row">
                 @if(!isset($hideMenu))
 	                @include('frontend.layouts.menu-left')
+                    @include('frontend.layouts.slide')
 				@endif
 				<div class="col-sm-9 padding-right">
 					@yield('content')

@@ -11,12 +11,30 @@
                         
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">account</a></h4>
+                                <h4 class="panel-title"><a href="{{ route('frontend.account') }}">account</a></h4>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title"><a href="#">My product</a></h4>
+                                <h4 class="panel-title">
+                                    <a href="#my-product" data-toggle="collapse">My product
+                                        <span class="pull-right">
+                                            <i class="fa fa-plus"></i>
+                                        </span>
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="my-product" class="panel-collapse collapse"> 
+                                <div class="panel-body"> 
+                                    <ul> 
+                                        <li> 
+                                            <a href="#"> List Product </a> 
+                                        </li> 
+                                        <li> 
+                                            <a href="{{ route('frontend.add') }}"> Create Product </a> 
+                                        </li> 
+                                    </ul> 
+                                </div> 
                             </div>
                         </div>
                         

@@ -5,6 +5,7 @@ use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Blog\BlogController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\MemberController;
+use App\Http\Controllers\Frontend\ProductController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -33,11 +34,31 @@ Route::post('/blog/edit/{id}', [App\Http\Controllers\Admin\BlogController::class
 Route::get('/blog/delete/{id}', [App\Http\Controllers\Admin\BlogController::class, 'delete']);
 
 //COUNTRY
-Route::get('/country/list', [App\Http\Controllers\Admin\CountryController::class, 'index']);
+// Route::get('/country/list', [App\Http\Controllers\Admin\CountryController::class, 'index']);
 Route::get('/country/add', [App\Http\Controllers\Admin\CountryController::class, 'add']);
 Route::post('/country/add', [App\Http\Controllers\Admin\CountryController::class, 'insert']);
 Route::get('/country/list', [App\Http\Controllers\Admin\CountryController::class, 'list']);
 Route::get('/country/delete/{id}', [App\Http\Controllers\Admin\CountryController::class, 'delete']);
+
+//CATEGORY
+// Route::get('/category/list', [App\Http\Controllers\Admin\Product\CategoryController::class, 'index']);
+Route::get('/category/add', [App\Http\Controllers\Admin\Product\CategoryController::class, 'add']);
+Route::post('/category/add', [App\Http\Controllers\Admin\Product\CategoryController::class, 'insert']);
+Route::get('/category/list', [App\Http\Controllers\Admin\Product\CategoryController::class, 'list']);
+Route::get('/category/edit/{id}', [App\Http\Controllers\Admin\Product\CategoryController::class, 'edit']);
+Route::post('/category/edit/{id}', [App\Http\Controllers\Admin\Product\CategoryController::class, 'update']);
+Route::get('/category/delete/{id}', [App\Http\Controllers\Admin\Product\CategoryController::class, 'delete']);
+
+
+//BRAND
+// Route::get('/category/list', [App\Http\Controllers\Admin\Product\CategoryController::class, 'index']);
+Route::get('/brand/add', [App\Http\Controllers\Admin\Product\BrandController::class, 'add']);
+Route::post('/brand/add', [App\Http\Controllers\Admin\Product\BrandController::class, 'insert']);
+Route::get('/brand/list', [App\Http\Controllers\Admin\Product\BrandController::class, 'list']);
+Route::get('/brand/edit/{id}', [App\Http\Controllers\Admin\Product\BrandController::class, 'edit']);
+Route::post('/brand/edit/{id}', [App\Http\Controllers\Admin\Product\BrandController::class, 'update']);
+Route::get('/brand/delete/{id}', [App\Http\Controllers\Admin\Product\BrandController::class, 'delete']);
+
 
 //PHAN FRONTEND
 Route::get('/frontend/home',[HomeController::class,'index']);
@@ -59,16 +80,10 @@ Route::get('/frontend/logout', [MemberController::class, 'logout']);
 Route::get('/frontend/account', [MemberController::class, 'account'])->name('frontend.account');
 Route::post('/account/update', [MemberController::class, 'update']);
 
-
-
-
-
-
-
-
-
-
-
+//PRODUCTS
+Route::get('/frontend/account/product', [ProductController::class, 'index'])->name('frontend.my-product');
+Route::get('/frontend/account/add-product', [ProductController::class, 'add'])->name('frontend.add');
+Route::post('/frontend/account/product', [ProductController::class, 'insert'])->name('frontend.insert');
 
 
 Auth::routes();
