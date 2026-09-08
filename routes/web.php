@@ -84,6 +84,7 @@ Route::post('/account/update', [MemberController::class, 'update']);
 Route::get('/frontend/account/product', [ProductController::class, 'index'])->name('frontend.my-product');
 Route::get('/frontend/account/add-product', [ProductController::class, 'add'])->name('frontend.add');
 Route::post('/frontend/account/product', [ProductController::class, 'insert'])->name('frontend.insert');
+Route::get('/frontend/account/my-product', [ProductController::class, 'list'])->name('frontend.list');
 
 
 Auth::routes();

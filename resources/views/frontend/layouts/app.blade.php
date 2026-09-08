@@ -34,12 +34,20 @@
 		<div class="container">
 			<div class="row">
                 @if(!isset($hideMenu))
-	                @include('frontend.layouts.menu-left')
+
+                    @include('frontend.layouts.menu-left')
                     @include('frontend.layouts.slide')
-				@endif
-				<div class="col-sm-9 padding-right">
-					@yield('content')
-				</div>
+
+                    <div class="col-sm-9 padding-right">
+                        @yield('content')
+                    </div>
+
+                @else
+
+                    @yield('content')
+
+                @endif
+
 			</div>
 		</div>
 	</section>

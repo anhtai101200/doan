@@ -21,5 +21,6 @@ class Product extends Model
         'company',
         'hinhanh',
         'detail',
+        'filename'
     ];
 }

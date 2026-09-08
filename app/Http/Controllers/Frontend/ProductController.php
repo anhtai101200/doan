@@ -1,11 +1,13 @@
 <?php
 
 namespace App\Http\Controllers\Frontend;
-
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ProductRequest;
 use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Product;
+use Intervention\Image\Laravel\Facades\Image;
 use Illuminate\Http\Request;
 
 class ProductController extends Controller
@@ -17,12 +19,78 @@ class ProductController extends Controller
 
     public function add()
     {
+    	// $getArrImage = json_decode($getProducts['filename'], true);
         $hideMenu = true;
+
         $data = new Product();
 
         $categories = Category::all();
         $brands = Brand::all();
 
-        return view('frontend.member.product.add', compact('data', 'categories','brands','hideMenu'));
+        $getArrImage = [];
+
+        return view('frontend.member.product.add', compact('data', 'categories','brands','hideMenu','getArrImage'));
+    }
+
+    public function insert(ProductRequest $request)
+    {
+
+        $data = $request->all();
+
+        //thêm ID của người đang đăng nhập vào dữ liệu sản phẩm trước khi lưu vào database.
+        $data['id_user'] = Auth::id();
+
+        $dataimg = [];
+
+        if($request->hasfile('hinhanh'))
+        {
+
+            foreach($request->file('hinhanh') as $xx)
+            {
+                $image = Image::read($xx);
+
+                $name = $xx->getClientOriginalName();
+                $name_2 = "hinh50_".$xx->getClientOriginalName();
+                $name_3 = "hinh200_".$xx->getClientOriginalName();
+
+                //$image->move('upload/product/', $name);
+                
+                
+                $path = public_path('upload/product/image/' . $name);
+                $path2 = public_path('upload/product/image/' . $name_2);
+                $path3 = public_path('upload/product/image/' . $name_3);
+
+                // Lưu ảnh gốc
+                $image->save($path);
+
+                //Tạo ảnh 50x70
+                $image->resize(50, 70)->save($path2);
+
+                $image->resize(200, 300)->save($path3);
+                
+                // lấy từng tên hình ảnh đưa vào mảng
+                $dataimg[] = $name;
+            }
+
+        }
+
+        //chuyen mang thanh chuoi json sau do gan chuoi do vao $data['hinhanh']
+        $data['hinhanh'] = json_encode($dataimg);
+        
+        if(Product::create($data)) {
+            return redirect()->back()->with('success', __('Them product thanh cong'));
+        } else {
+            return redirect()->back()->withErrors('Them product that bai');
+        }
+       
+    }
+
+    public function list() {
+        $hideMenu = true;
+
+        $data = Product::select('id','hinhanh', 'name', 'price')
+                ->orderBy('id', 'desc')
+                ->paginate(3);
+        return view('frontend.member.product.index', compact('data','hideMenu'));
     }
 }

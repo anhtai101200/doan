@@ -28,7 +28,7 @@
                                 <div class="panel-body"> 
                                     <ul> 
                                         <li> 
-                                            <a href="#"> List Product </a> 
+                                            <a href="{{ route('frontend.list') }}"> List Product </a> 
                                         </li> 
                                         <li> 
                                             <a href="{{ route('frontend.add') }}"> Create Product </a> 
@@ -130,7 +130,7 @@
                         <div class="form-group">
                             <label class="col-md-12">Image</label>
                             <div class="col-md-12">
-                                <input type="file" name="iamge" placeholder="Chon anh" class="form-control form-control-line" value="">
+                                <input type="file" id="files" name="hinhanh[]" multiple placeholder="Chon anh" class="form-control form-control-line" value="">
                             </div>
                         </div>
 

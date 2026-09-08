@@ -28,7 +28,7 @@
                                 <div class="panel-body"> 
                                     <ul> 
                                         <li> 
-                                            <a href="#"> List Product </a> 
+                                            <a href="{{ route('frontend.list') }}"> List Product </a> 
                                         </li> 
                                         <li> 
                                             <a href="{{ route('frontend.add') }}"> Create Product </a> 
