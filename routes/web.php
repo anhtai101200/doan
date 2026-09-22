@@ -61,7 +61,7 @@ Route::get('/brand/delete/{id}', [App\Http\Controllers\Admin\Product\BrandContro
 
 
 //PHAN FRONTEND
-Route::get('/frontend/home',[HomeController::class,'index']);
+Route::get('/',[HomeController::class,'index'])->name('frontend.home');
 Route::get('/frontend/register',[MemberController::class,'register']);
 Route::post('/frontend/register',[MemberController::class,'insert'])->name('frontend.member.register');
 Route::get('/frontend/login', [MemberController::class, 'index'])->name('frontend.login');
@@ -81,10 +81,12 @@ Route::get('/frontend/account', [MemberController::class, 'account'])->name('fro
 Route::post('/account/update', [MemberController::class, 'update']);
 
 //PRODUCTS
-Route::get('/frontend/account/product', [ProductController::class, 'index'])->name('frontend.my-product');
-Route::get('/frontend/account/add-product', [ProductController::class, 'add'])->name('frontend.add');
-Route::post('/frontend/account/product', [ProductController::class, 'insert'])->name('frontend.insert');
-Route::get('/frontend/account/my-product', [ProductController::class, 'list'])->name('frontend.list');
+Route::get('/product/add', [ProductController::class, 'add'])->name('frontend.add');
+Route::post('/product/add', [ProductController::class, 'insert'])->name('frontend.insert');
+Route::get('/product', [ProductController::class, 'list'])->name('frontend.list');
+Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('frontend.edit');
+Route::post('/product/edit/{id}', [ProductController::class, 'update'])->name('frontend.update');
+
 
 
 Auth::routes();

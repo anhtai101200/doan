@@ -81,7 +81,7 @@
                                         </td>
 
                                         <td class="cart_total">
-                                            <a href="#">Edit</a>
+                                            <a href="{{ route('frontend.edit', ['id' => $row->id]) }}">Edit</a>
                                             <a href="#">Delete</a>
                                         </td>
                                     </tr>

@@ -14,7 +14,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('frontend.member.product.index');
+        //
     }
 
     public function add()
@@ -92,5 +92,70 @@ class ProductController extends Controller
                 ->orderBy('id', 'desc')
                 ->paginate(3);
         return view('frontend.member.product.index', compact('data','hideMenu'));
+    }
+
+    public function edit(Request $request)
+    {
+        //dd($request->all());
+        $hideMenu = true;
+
+        $id = $request->route('id');//id tren URL
+        // dd($id);
+        $data = Product::findorFail($id);//tim id trong table Product
+
+        $categories = Category::all();
+        $brands = Brand::all();
+        return view('frontend.member.product.edit', compact('data','categories','brands', 'hideMenu'));
+       
+    }
+
+    public function update(Request $request, Product $products) 
+    {
+        $id = $request->route('id');//id tren URL
+
+        //Kiem tra xem da tick checkbox chua
+        if (isset($request->hinhxoa)) {
+            $hinhxoa = $request->hinhxoa;
+        } else {
+            $hinhxoa = [];
+        }
+        $product = Product::find($id);
+        $hinhcu = json_decode($product->hinhanh, true);//lấy hình ảnh cũ trong database và chuyển sang mang PHP
+        $hinhconlai = array_diff($hinhcu, $hinhxoa);//xóa value khỏi mảng theo value
+        $hinhconlai = array_values($hinhconlai);//reset key của array
+
+
+        // Kiểm tra có upload hình mới không
+        $files = $request->file('hinhanh');
+        
+        if (!empty($files)) {
+            //Neu co hinh moi thi Hinhmoi + hinhconlai > 3
+            $slhinhmoi = count($files);
+            if (count($hinhconlai) + $slhinhmoi > 3) {
+                return back()->withErrors('Tong so hinh khong duoc lon hon 3');
+            } else {
+                //upload anh moi
+                $hinhmoi = [];
+    
+                foreach ($files as $file) {
+    
+                   $file->move('upload/product/image', $file->getClientOriginalName());
+    
+                   // Lấy tên ảnh mới đưa vào mảng
+                    $hinhmoi[] = $file->getClientOriginalName();
+                }
+    
+                // Ghép hình mới vào hình cũ còn lại
+                $hinhconlai = array_merge($hinhconlai, $hinhmoi);
+ 
+            }
+        }
+
+        // khong upload hình mới thì cũng lưu lại danh sách hình
+        $product->hinhanh = json_encode($hinhconlai);
+        $product->save();
+        
+        //Chuyển về danh sách sản phẩm
+        return redirect()->route('frontend.list');
     }
 }
