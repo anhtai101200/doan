@@ -77,12 +77,12 @@
                                         </td>
 
                                         <td class="cart_price">
-                                            <p>${{ ($row->price) }} </p>
+                                            <p>${{ number_format($row->price, 0, '.', '') }} </p>
                                         </td>
 
                                         <td class="cart_total">
                                             <a href="{{ route('frontend.edit', ['id' => $row->id]) }}">Edit</a>
-                                            <a href="#">Delete</a>
+                                            <a href="/product/delete/{{ $row->id }}">Delete</a>
                                         </td>
                                     </tr>
                                 @endforeach

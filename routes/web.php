@@ -86,6 +86,8 @@ Route::post('/product/add', [ProductController::class, 'insert'])->name('fronten
 Route::get('/product', [ProductController::class, 'list'])->name('frontend.list');
 Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('frontend.edit');
 Route::post('/product/edit/{id}', [ProductController::class, 'update'])->name('frontend.update');
+Route::get('/product/delete/{id}', [ProductController::class, 'delete']);
+Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('frontend.detail');
 
 
 

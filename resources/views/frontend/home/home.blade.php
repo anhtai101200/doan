@@ -39,9 +39,9 @@
 
                             <p>{{ $product->name }}</p>
 
-                            <a href="#" class="btn btn-default add-to-cart">
-                                <i class="fa fa-shopping-cart"></i>
-                                Add to cart
+                            <a href="{{ route('frontend.detail', $product->id) }}" class="btn btn-default">
+                                <i class="fa fa-eye"></i>
+                                View Detail
                             </a>
 
                         </div>

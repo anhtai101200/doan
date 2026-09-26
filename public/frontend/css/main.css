@@ -2458,3 +2458,20 @@ textarea {
 .through {
     text-decoration: line-through;
 }
+
+#similar-product .carousel-inner .item {
+    display: flex;
+    align-items: center;
+}
+
+#similar-product .carousel-inner .item a {
+    display: block;
+    width: 33.333%;
+    padding: 0 5px;
+}
+
+#similar-product .carousel-inner .item img {
+    width: 100%;
+    height: 80px;
+    object-fit: cover;
+}

@@ -59,6 +59,11 @@
 	<script src="{{ asset('frontend/js/jquery.scrollUp.min.js') }}"></script>
 	<script src="{{ asset('frontend/js/price-range.js') }}"></script>
     <script src="{{ asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
+    <script type="text/javascript">
+        $(document).ready(function(){
+            $("a[rel^='prettyPhoto']").prettyPhoto();
+        });
+    </script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     @yield('rate')
     @yield('comment')

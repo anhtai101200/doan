@@ -158,4 +158,36 @@ class ProductController extends Controller
         //Chuyển về danh sách sản phẩm
         return redirect()->route('frontend.list');
     }
+
+    public function delete(Request $request)
+    {
+        $id = $request->route('id');
+        $product = Product::find($id);
+
+        if ($product) {
+            $product->delete();
+
+            return redirect('/product')
+                ->with('success', 'Xóa sản phẩm thành công');
+        } else {
+            return redirect('/product')
+                ->withErrors('Không tìm thấy sản phẩm');
+        }
+    }
+
+    public function detail(Request $request)
+    {
+        $hideMenu = true;
+
+        $id = $request->route('id');
+
+        // Tìm sản phẩm theo ID
+        $products = Product::find($id);
+
+        if (!$products) {
+            return redirect()->route('frontend.home');
+        }
+
+        return view('frontend.home.detail', compact('products', 'hideMenu'));
+    }
 }
