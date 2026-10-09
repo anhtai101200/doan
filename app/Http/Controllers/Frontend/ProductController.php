@@ -190,4 +190,5 @@ class ProductController extends Controller
 
         return view('frontend.home.detail', compact('products', 'hideMenu'));
     }
+
 }

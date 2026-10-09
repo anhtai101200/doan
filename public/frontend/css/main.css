@@ -2475,3 +2475,8 @@ textarea {
     height: 80px;
     object-fit: cover;
 }
+
+.product-image-wrapper .productinfo .add-to-cart {
+    position: relative;
+    z-index: 9999;
+}

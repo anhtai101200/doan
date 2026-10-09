@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\Blog\BlogController;
+use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\MemberController;
 use App\Http\Controllers\Frontend\ProductController;
@@ -88,6 +89,14 @@ Route::get('/product/edit/{id}', [ProductController::class, 'edit'])->name('fron
 Route::post('/product/edit/{id}', [ProductController::class, 'update'])->name('frontend.update');
 Route::get('/product/delete/{id}', [ProductController::class, 'delete']);
 Route::get('/product/detail/{id}', [ProductController::class, 'detail'])->name('frontend.detail');
+
+//CART
+Route::get('/cart', [CartController::class, 'index'])->name('cart.index');
+Route::post('/cart/add', [CartController::class, 'cart'])->name('cart.add');
+Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
+Route::post('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
+Route::get('cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+
 
 
 

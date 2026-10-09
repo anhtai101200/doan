@@ -25,10 +25,12 @@
 
                         <p>{{ $product->name }}</p>
 
-                        <a href="#" class="btn btn-default add-to-cart">
+                        <button class="btn btn-default add-to-cart" id="{{ $product->id }}">
                             <i class="fa fa-shopping-cart"></i>
                             Add to cart
-                        </a>
+                        </button>
+
+                        
 
                     </div>
 

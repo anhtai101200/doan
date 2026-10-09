@@ -92,8 +92,12 @@
                             </li>
 
                             <li>
-                                <a href="cart.html">
-                                    <i class="fa fa-shopping-cart"></i> Cart
+                                <a href="{{ route('cart.index') }}">
+                                    <i class="fa fa-shopping-cart"></i>
+                                    Cart
+                                    <span id="cart-count">
+                                        {{ count(session()->get('cart', [])) }}
+                                    </span>
                                 </a>
                             </li>
 

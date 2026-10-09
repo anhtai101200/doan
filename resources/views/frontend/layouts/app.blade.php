@@ -64,6 +64,133 @@
             $("a[rel^='prettyPhoto']").prettyPhoto();
         });
     </script>
+    <script>
+        $(document).ready(function() {
+
+            $('.add-to-cart').click(function() {
+
+                let id = $(this).attr('id');
+
+                //console.log(id);
+                $.ajax({
+                    url: "{{ route('cart.add') }}",
+                    type:"POST",
+                    data: {
+                        id: id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        $('#cart-count').text(res.count);
+                    }
+                })
+
+            });
+
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+           $('.cart_quantity_up').click(function(e) {
+
+                e.preventDefault();
+
+                // Lấy ID sản phẩm
+                let id = $(this).attr('id');
+
+                // Lấy số lượng hiện tại
+                let qty = $(this).next().val();
+
+                qty = parseInt(qty);
+
+                // Tăng số lượng
+                qty++;
+
+                // Hiển thị số lượng mới
+                $(this).next().val(qty);
+
+                let button = this;
+
+                // AJAX gửi ID + qty lên PHP
+                $.ajax({
+                    url: "{{ route('cart.update') }}",
+                    type: "POST",
+                    data: {
+                        id: id,
+                        qty: qty,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        $(button).closest('tr').find('.cart_total_price').text('$' + res.totalProduct);
+                        // Tổng tất cả sản phẩm
+                        $('#cart-sub-total').text('$' + res.total);
+                        $('#cart-total').text('$' + res.total)
+                    } 
+                });
+
+            });
+
+            $('.cart_quantity_down').click(function(e) {
+
+                e.preventDefault();
+
+                // Lấy ID sản phẩm
+                let id = $(this).attr('id');
+
+                // Lấy số lượng
+                let qty = $(this).prev().val();
+
+                qty = parseInt(qty);
+
+                if (qty > 1) {
+                    qty--;
+
+                    $(this).prev().val(qty);
+
+                    let button = this;
+
+                    $.ajax({
+                        url: "{{ route('cart.update') }}",
+                        type: "POST",
+                        data: {
+                            id: id,
+                            qty: qty,
+                            _token: "{{ csrf_token() }}"
+                        },
+                        success: function(res) {
+                            console.log(res);
+                            $(button).closest('tr').find('.cart_total_price').text('$' + res.totalProduct);
+                            // Tổng tất cả sản phẩm
+                            $('#cart-sub-total').text('$' + res.total);
+                            $('#cart-total').text('$' + res.total)
+                        }
+                    });
+                }
+
+            });
+
+            $('.cart_quantity_delete').click(function(e) {
+                e.preventDefault();
+
+                let id = $(this).attr('id');
+
+                $.ajax({
+                    url: "{{ route('cart.delete') }}",
+                    type: "POST",
+                    data: {
+                        id: id,
+                        _token: "{{ csrf_token() }}"
+                    },
+                    success: function(res) {
+                        console.log(res);
+                        location.reload();
+                    }
+                });
+            });
+
+        });
+    </script>
     <script src="{{ asset('frontend/js/main.js') }}"></script>
     @yield('rate')
     @yield('comment')
