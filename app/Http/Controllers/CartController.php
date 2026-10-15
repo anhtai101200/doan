@@ -123,26 +123,4 @@ class CartController extends Controller
         $cart = session()->get('cart', $array);
         return view('frontend.member.cart.checkout', compact('hideMenu', 'countries', 'cart'));
     }
-
-    public function order(Request $request) {
-        // $user = Auth::user();
-
-        // $cart = session()->get('cart', []);
-
-        // // Tính tổng tiền giỏ hàng ở đây
-        // $total = 0;
-
-        // foreach ($cart as $product) {
-        //     $total += $product['price'] * $product['qty'];
-        // }
-
-        // // LƯU LỊCH SỬ MUA HÀNG
-        // History::create([
-        //     'email' => $user->email,
-        //     'phone' => $user->phone,
-        //     'name' => $user->name,
-        //     'id_user' => $user->id,
-        //     'price' => $total,
-        // ]);
-    }
 }
