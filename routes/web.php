@@ -7,6 +7,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\MemberController;
 use App\Http\Controllers\Frontend\ProductController;
+use App\Http\Controllers\MailController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Auth;
 
@@ -96,6 +97,13 @@ Route::post('/cart/add', [CartController::class, 'cart'])->name('cart.add');
 Route::post('/cart/update', [CartController::class, 'update'])->name('cart.update');
 Route::post('/cart/delete', [CartController::class, 'delete'])->name('cart.delete');
 Route::get('cart/checkout', [CartController::class, 'checkout'])->name('cart.checkout');
+Route::post('/checkout/register', [CartController::class, 'registerCheckout'])
+    ->name('checkout.register');
+// Route::get('cart/order', [CartController::class, 'order'])->name('cart.order');
+
+
+//Maill
+Route::get('/order', [MailController::class, 'index'])->name('cart.order');
 
 
 

@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Country;
+use App\Models\History;
 use Illuminate\Http\Request;
 use App\Models\Product;
-
+use Illuminate\Support\Facades\Auth;
 
 class CartController extends Controller
 {
@@ -116,6 +118,31 @@ class CartController extends Controller
     public function checkout(Request $request)
     {
         $hideMenu = true;
-        return view('frontend.member.cart.checkout', compact('hideMenu'));
+        $countries = Country::all();
+        $array = [];
+        $cart = session()->get('cart', $array);
+        return view('frontend.member.cart.checkout', compact('hideMenu', 'countries', 'cart'));
+    }
+
+    public function order(Request $request) {
+        // $user = Auth::user();
+
+        // $cart = session()->get('cart', []);
+
+        // // Tính tổng tiền giỏ hàng ở đây
+        // $total = 0;
+
+        // foreach ($cart as $product) {
+        //     $total += $product['price'] * $product['qty'];
+        // }
+
+        // // LƯU LỊCH SỬ MUA HÀNG
+        // History::create([
+        //     'email' => $user->email,
+        //     'phone' => $user->phone,
+        //     'name' => $user->name,
+        //     'id_user' => $user->id,
+        //     'price' => $total,
+        // ]);
     }
 }

@@ -34,80 +34,98 @@
 
         <div class="shopper-informations">
             <div class="row">
-                <div class="col-sm-3">
-                    <div class="shopper-info">
-                        <p>Shopper Information</p>
-                        <form>
-                            <input type="text" placeholder="Display Name">
-                            <input type="text" placeholder="User Name">
-                            <input type="password" placeholder="Password">
-                            <input type="password" placeholder="Confirm password">
-                        </form>
-                        <a class="btn btn-primary" href="">Get Quotes</a>
-                        <a class="btn btn-primary" href="">Continue</a>
-                    </div>
-                </div>
-                <div class="col-sm-5 clearfix">
-                    <div class="bill-to">
-                        <p>Bill To</p>
-                        <div class="form-one">
-                            <form>
-                                <input type="text" placeholder="Company Name">
-                                <input type="text" placeholder="Email*">
-                                <input type="text" placeholder="Title">
-                                <input type="text" placeholder="First Name *">
-                                <input type="text" placeholder="Middle Name">
-                                <input type="text" placeholder="Last Name *">
-                                <input type="text" placeholder="Address 1 *">
-                                <input type="text" placeholder="Address 2">
-                            </form>
-                        </div>
-                        <div class="form-two">
-                            <form>
-                                <input type="text" placeholder="Zip / Postal Code *">
-                                <select>
-                                    <option>-- Country --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <select>
-                                    <option>-- State / Province / Region --</option>
-                                    <option>United States</option>
-                                    <option>Bangladesh</option>
-                                    <option>UK</option>
-                                    <option>India</option>
-                                    <option>Pakistan</option>
-                                    <option>Ucrane</option>
-                                    <option>Canada</option>
-                                    <option>Dubai</option>
-                                </select>
-                                <input type="password" placeholder="Confirm password">
-                                <input type="text" placeholder="Phone *">
-                                <input type="text" placeholder="Mobile Phone">
-                                <input type="text" placeholder="Fax">
-                            </form>
-                        </div>
-                    </div>
-                </div>
                 <div class="col-sm-4">
-                    <div class="order-message">
-                        <p>Shipping Order</p>
-                        <textarea name="message"  placeholder="Notes about your order, Special Notes for Delivery" rows="16"></textarea>
-                        <label><input type="checkbox"> Shipping to bill address</label>
-                    </div>	
+                <div class="signup-form"><!--sign up form-->
+                <!-- Hiển thị thông báo thành công -->
+                @if(session('success'))
+                <div class="alert alert-success alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    {{ session('success') }}
+                </div>
+                @endif
+
+                <!-- Hiển thị lỗi -->
+                @if($errors->any())
+                <div class="alert alert-danger alert-dismissible">
+                    <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                    <ul>
+                        @foreach($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
+
+                @if(!Auth::check())
+                    <h2>New User Signup!</h2>
+
+                    <form method="POST" action="{{ route('checkout.register') }}" class="form-horizontal form-material" enctype="multipart/form-data">
+                        <div class="form-group">
+                            @csrf
+                            <label class="col-md-12">Full Name</label>
+                            <div class="col-md-12">
+                                <input type="text" name="name" placeholder="Johnathan Doe" class="form-control form-control-line" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="example-email" class="col-md-12">Email</label>
+                            <div class="col-md-12">
+                                <input type="email" name="email" placeholder="johnathan@admin.com" class="form-control form-control-line" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Password</label>
+                            <div class="col-md-12">
+                                <input type="password" name="password" class="form-control form-control-line">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-md-12">Avatar</label>
+                            <div class="col-md-12">
+                                <input type="file" name="avatar" class="form-control form-control-line">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Phone No</label>
+                            <div class="col-md-12">
+                                <input type="text" name="phone" placeholder="Nhap so dien thoai" class="form-control form-control-line" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-md-12">Address</label>
+                            <div class="col-md-12">
+                                <input type="text" name="address" class="form-control form-control-line" value="">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="col-sm-12">Select Country</label>
+                            <div class="col-sm-12">
+                                <select name="id_country" class="form-control form-control-line">
+                                    <option value="">-- Chon Country --</option>
+                                    @foreach($countries as $country)
+                                        <option value="{{ $country->id }}">
+                                            {{ $country->name }}
+                                        </option>
+                                    @endforeach
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div class="col-sm-12">
+                                <button type="submit" class="btn btn-success">Register</button>
+                            </div>
+                        </div>
+                    </form>
+                @endif
+                </div><!--/sign up form-->
                 </div>					
             </div>
         </div>
         <div class="review-payment">
             <h2>Review & Payment</h2>
         </div>
-
+        
         <div class="table-responsive cart_info">
             <table class="table table-condensed">
                 <thead>
@@ -115,113 +133,48 @@
                         <td class="image">Item</td>
                         <td class="description"></td>
                         <td class="price">Price</td>
-                        <td class="quantity">Quantity</td>
                         <td class="total">Total</td>
                         <td></td>
                     </tr>
                 </thead>
                 <tbody>
+                    @php
+                        $total = 0;
+                    @endphp
+                    @foreach($cart as $product)
                     <tr>
                         <td class="cart_product">
-                            <a href=""><img src="images/cart/one.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
+                            @php
+                                $getArrImage = json_decode($product['hinhanh'], true);
+                            @endphp
 
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/two.png" alt=""></a>
+                            @if(!empty($getArrImage))
+                                <a href=""><img src="{{asset('upload/product/image/' .$getArrImage[0]) }}" alt="" width="80" height="80" style="object-fit: cover;"></a>
+                            @endif
                         </td>
                         <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
+                            <h4><a href="">{{ $product['name'] }}</a></h4>
+                            <p>Web ID: {{ $product['id'] }}</p>
                         </td>
                         <td class="cart_price">
-                            <p>$59</p>
+                            <p>${{ number_format($product['price'])}}</p>
                         </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
+                       
                         <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
+                            <p class="cart_total_price"> ${{ number_format((float)$product['price'] * (int)$product['qty']) }}</p>
                         </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
+                       
                     </tr>
-                    <tr>
-                        <td class="cart_product">
-                            <a href=""><img src="images/cart/three.png" alt=""></a>
-                        </td>
-                        <td class="cart_description">
-                            <h4><a href="">Colorblock Scuba</a></h4>
-                            <p>Web ID: 1089772</p>
-                        </td>
-                        <td class="cart_price">
-                            <p>$59</p>
-                        </td>
-                        <td class="cart_quantity">
-                            <div class="cart_quantity_button">
-                                <a class="cart_quantity_up" href=""> + </a>
-                                <input class="cart_quantity_input" type="text" name="quantity" value="1" autocomplete="off" size="2">
-                                <a class="cart_quantity_down" href=""> - </a>
-                            </div>
-                        </td>
-                        <td class="cart_total">
-                            <p class="cart_total_price">$59</p>
-                        </td>
-                        <td class="cart_delete">
-                            <a class="cart_quantity_delete" href=""><i class="fa fa-times"></i></a>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td colspan="4">&nbsp;</td>
-                        <td colspan="2">
-                            <table class="table table-condensed total-result">
-                                <tr>
-                                    <td>Cart Sub Total</td>
-                                    <td>$59</td>
-                                </tr>
-                                <tr>
-                                    <td>Exo Tax</td>
-                                    <td>$2</td>
-                                </tr>
-                                <tr class="shipping-cost">
-                                    <td>Shipping Cost</td>
-                                    <td>Free</td>										
-                                </tr>
-                                <tr>
-                                    <td>Total</td>
-                                    <td><span>$61</span></td>
-                                </tr>
-                            </table>
-                        </td>
-                    </tr>
+                    @php
+                        $total += (float)$product['price'] * (int)$product['qty'];
+                    @endphp
+                    @endforeach
+
                 </tbody>
             </table>
+            <div>
+                <a class="btn btn-default check_out" href="{{ route('cart.order')}}">ORDER</a>
+            </div>
         </div>
         <div class="payment-options">
                 <span>
